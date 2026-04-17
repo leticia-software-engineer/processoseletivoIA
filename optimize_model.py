@@ -18,7 +18,6 @@ with open("model.tflite", "wb") as f:
 
 print("Modelo convertido e salvo como model.tflite")
 
-# (Opcional, mas bom para debug no CI)
 if os.path.exists("model.tflite"):
     size = os.path.getsize("model.tflite") / 1024
     print(f"Tamanho do modelo TFLite: {size:.2f} KB")
