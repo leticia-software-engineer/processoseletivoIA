@@ -12,15 +12,14 @@
 
 ## 📌 Navegação Rápida
 
-- 📂 [Resumo da Arquitetura do Modelo](#1-resumo-da-arquitetura-do-modelo)
-- ⚙ [Bibliotecas Utilizadas](#2-bibliotecas-utilizadas)
+- 📂 [Resumo da Arquitetura do Modelo](#resumo-da-arquitetura-do-modelo)
+- ⚙ [Bibliotecas Utilizadas](#bibliotecas-utilizadas)
   - 📚 [Tensorflow](#tensorflow)
   - 📚 [os](#os)
-- 💻 [Técnica de Otimização do Modelo](#3-técnica-de-otimização-do-modelo)
-  - 🎯 [Quantização de Faixa Dinâmica](#-quantização-de-faixa-dinâmica)
-- 📤 [Resultados Obtidos](#4-resultados-obtidos)
-- 📝 [Comentários Adicionais](#5-comentários-adicionais)
-
+- 💻 [Técnica de Otimização do Modelo](#tecnica-de-otimizacao-do-modelo)
+  - 🎯 [Quantização de Faixa Dinâmica](#quantizacao-de-faixa-dinamica)
+- 📤 [Resultados Obtidos](#resultados-obtidos)
+- 📝 [Comentários Adicionais](#comentarios-adicionais)
 ---
 
 ## 1️⃣ Resumo da Arquitetura do Modelo
