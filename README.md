@@ -157,7 +157,11 @@ Algumas das limitações do seguinte modelo estão mais voltadas a sua aplicaç�
 
 ### Como executar
 
-Para executar em seu computador você deve compilar os arquivos da seguinte forma no terminal:
+Para executar em seu computador você deve clonar esse projeto, instalar os requirements.txt:
+```powershell
+pip install -r requirements.txt
+```
+e compilar os arquivos da seguinte forma no terminal:
 ```powershell
 python train_model.py
 >> python optimize_model.py
