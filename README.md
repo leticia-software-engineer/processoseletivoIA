@@ -59,7 +59,9 @@ Dense(64, activation='relu')
 Essa camada utiliza 64 neurônios, cada um faz uma interpretação diferente dos valores do Flaten, essa camada identifica padrôes ainda mais completos a partir da combinação dos padrôes já identificados antes ele começa a juntar os detalhes como se fosse um quebra cabeças.
 
 A segunda camada densa realiza a distinção dos dígitos:
-
+```python
+layers.Dense(10, activation='softmax')
+```
 Ela utiliza 10 neunônios cada um representa um número específico de 0 a 9. Cada neurônio vai calcular um valor com base na última saída advinda da primeira camada densa e esses valores são convertidos em probabilidades. Com isso, para cada valor apresentado será atribuído o dígito com maior probabilidade. 
 
 #### ReLU 
