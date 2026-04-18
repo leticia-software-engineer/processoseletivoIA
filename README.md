@@ -12,35 +12,97 @@
 
 ## 📌 Navegação Rápida
 
-- 📂 [Resumo da Arquitetura do Modelo](#-resumo-da-arquitetura-do-modelo)
-- ⚙ [Bibliotecas Utilizadas](#-bibliotecas-utilizadas)
-- 💻 [Técnica de Otimização do Modelo](#-técnica-de-otimização-do-modelo)
-  - 🎯 [Conjunto de Dados](#-conjunto-de-dados)
-  - 📚 [Material de Apoio](#-material-de-apoio)
-- 📤 [Resultados Obtidos](#-resultados-obtidos)
-- 📝 [Comentários Adicionais](#-comentários-adicionais)
+- 📂 [Resumo da Arquitetura do Modelo](#1-resumo-da-arquitetura-do-modelo)
+- ⚙ [Bibliotecas Utilizadas](#2-bibliotecas-utilizadas)
+  - 📚 [Tensorflow](#tensorflow)
+  - 📚 [os](#os)
+- 💻 [Técnica de Otimização do Modelo](#3-técnica-de-otimização-do-modelo)
+  - 🎯 [Quantização de Faixa Dinâmica](#-quantização-de-faixa-dinâmica)
+- 📤 [Resultados Obtidos](#4-resultados-obtidos)
+- 📝 [Comentários Adicionais](#5-comentários-adicionais)
 
 ---
 
 ## 1️⃣ Resumo da Arquitetura do Modelo
 
-Descreva, em palavras, a arquitetura da **CNN** implementada no arquivo
-`train_model.py`.
+Nesse modelo utilizei uma arquitetura de CNN simples, inspirada no modelo VGG, com uso de filtros 3x3, camadas de pooling e camadas densas para classificação. 
+Foram utilizadas duas camadas convolucionais e duas camadas densas, além do max pooling, conforme solicitado.
 
+A primeira camada convolucional é expressa por:
+
+```python
+layers.Conv2D(16, (3,3), activation='relu')
+```
+Nessa camada, foram utilizados 16 filtros diferentes, cada um analiza uma matriz 3x3 gerando 16 mapas de características. Com esse filtro o modelo aprende a identificar caracteríscas presentes nas bordas mais próximas dos dados de entrada.
+
+Já a segunda camada convolucional já faz uma análise mais profunda sendo representada por:
+
+```python
+layers.Conv2D(32, (3,3), activation='relu')
+```
+Nessa etapa, 32 filtros foram utilizados e os dados de entrada foram os resultados da camada anterior, combinando os padrôes da primeira camada para produzir padrôes mais sofisticados identificando melhor curvas, linhas e detalhes mais singulares de cada um dos algarismos.
+
+Além disso, fiz o emprego do max pooling 2x2 com o intuito de extrair caracteristicas mais relevantes em cada uma das camadas convulucionais.
+
+```python
+layers.MaxPooling2D(2,2)
+```
+O max pooling atua no código fazendo uma redução das quantidade de pixels da imagem, que é representada por matrizes. Ao empregá-lo, nesse caso, ele reorganizou as matrizes dividindo-as em partes menores(matrizes 2x2) e extraiu o maior valor de cada um, produzindo uma nova matriz apenas com os dados maiores filtrados, reduzindo o custo computacional, pois com isso os recursos de hardware serão poupados ao processar matrizes menores enquanto os padrôes são mantidos.
+
+Em seguida, utilizo o Flaten para converter os valores da matriz expressa em um mapa de características(pixels) em uma array de valores lineares, para preparar o modelo para ser tratado pelas camadas mais densas onde cada neurônio precisa se conectar com todos os valores de entrada.
+
+Depois disso utilizei duas camadas densas, sendo a primeira:
+
+```python
+Dense(64, activation='relu')
+```
+Essa camada utiliza 64 neurônios, cada um faz uma interpretação diferente dos valores do Flaten, essa camada identifica padrôes ainda mais completos a partir da combinação dos padrôes já identificados antes ele começa a juntar os detalhes como se fosse um quebra cabeças.
+
+A segunda camada densa realiza a distinção dos dígitos:
+
+Ela utiliza 10 neunônios cada um representa um número específico de 0 a 9. Cada neurônio vai calcular um valor com base na última saída advinda da primeira camada densa e esses valores são convertidos em probabilidades. Com isso, para cada valor apresentado será atribuído o dígito com maior probabilidade. 
+
+#### ReLU 
+
+O ReLU foi utilizado em três momentos no train_model.py:
+
+1. Nas camadas convolucionais, ele zera os valores negativos e mantém os positivos.
+2. Na primeira camada densa ele zera as combinações que não fazem sentido. Essas combinações são definidas pelo uso de algoritmos de otimização como o Adam que também foi empregado nesse modelo.
+
+#### Softmax
+
+O Softmax foi utilizado na segunda camada densa, para converter os valores nas probabilidades de cada dígito, facilitando uma análise mais matemática e assertiva com base nos dados de probabilidades. 
+
+Ele interpreta as probabilidades como nesse exemplo:
+
+| Dígito | Probabilidade |
+|--------|---------------|
+| 0      | 4%            |
+| 1      | 6%            |
+| 2      | 60%           |
+
+Nesse caso, o valor atribuido ao dígito seria o 2, pois ele possui a maior probabilidade de ser o dígito correto. Com base em todas as análises anteriores e algoritmos aplicados.
 
 ---
 ## 2️⃣ Bibliotecas Utilizadas
 
-Liste as principais bibliotecas utilizadas no projeto, preferencialmente
-com suas versões.
+### Tensorflow
+
+A biblioteca que mais utilizei foi a Tensorflow 
+dando ênfase para alguns de seus módulos:
+  #### 1. Keras 
+  
+  #### 2. Layers
+  
+  #### 3. Lite
+
+### os
 
 
 ---
 ## 3️⃣ Técnica de Otimização do Modelo
 
-Explique qual técnica foi utilizada para otimizar o modelo no arquivo
-`optimize_model.py`.
-
+### Quantização de Faixa Dinâmica
 
 ---
 ## 4️⃣ Resultados Obtidos
