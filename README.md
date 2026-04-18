@@ -127,7 +127,7 @@ A técnica de otimização escolhida para o modelo foi a Quantização de Faixa 
 
 ### Quantização de Faixa Dinâmica
 
-No optimize_model.py essa Quantização de Faixa Dinâmica reduziu o modelo com a intenção de deixá-lo mais leva para dispositivo embarcado. Ao ser aplicada, ela atua convertendo os valores de ponto flutuante de 32 bits em inteiros de 8 bits.
+No optimize_model.py essa Quantização de Faixa Dinâmica reduziu o modelo com a intenção de deixá-lo mais leve para dispositivo embarcado. Ao ser aplicada, ela atua convertendo os valores de ponto flutuante de 32 bits em inteiros de 8 bits.
 ```python
 converter.optimizations = [tf.lite.Optimize.DEFAULT]
 
