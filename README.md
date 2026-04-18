@@ -123,10 +123,22 @@ if os.path.exists("model.tflite"):
 ---
 ## 3️⃣ Técnica de Otimização do Modelo
 
+A técnica de otimização escolhida para o modelo foi a Quantização de Faixa Dinâmica. 
+
 ### Quantização de Faixa Dinâmica
+
+No optimize_model.py essa Quantização de Faixa Dinâmica reduziu o modelo com a intenção de deixá-lo mais leva para dispositivo embarcado. Ao ser aplicada, ela atua convertendo os valores de ponto flutuante de 32 bits em inteiros de 8 bits.
+```python
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+
+tflite_model = converter.convert()
+ ```
+ Isso faz com que o modelo ocupe menos memória, sem perder a coerência das informações. Essa redução é muito importante pois os dispositivos embarcados possuem capacidade de memória limitada e cada KB precisa ser bem aproveitado.
 
 ---
 ## 4️⃣ Resultados Obtidos
+
+Na tabela a seguir listo alguns dos principais resultados obtidos com o modelo. Vale destacar que a acurácia apresentou valores variáveis em cada treinamento, mas ficando sempre numa média 98%, considerando o formato inteiro de 8 bits.
 
 | Critério | Resultado |
 |--------|---------------|
@@ -139,10 +151,33 @@ if os.path.exists("model.tflite"):
 ---
 ## 5️⃣ Comentários Adicionais
 
-Utilize este espaço para comentar:
-- Dificuldades encontradas  
-- Decisões técnicas importantes  
-- Limitações do modelo  
-- Aprendizados durante o desafio
+### Limitações do modelo  
 
+Algumas das limitações do seguinte modelo estão mais voltadas a sua aplicação em casos divergentes do utilizado, porque ele foi treinado apenas com o dataset MNIST e foi utilizada uma arquitetura simples com poucas camadas e apenas 5 épocas, conforme solicitado. Desse modo o modelo não apresenta robustez para lidar com uma complexidade muito superior ou imagens com ofuscamento, mas pode ser usado facilmente em Edge Ai, é leve e rápido.
+
+### Como executar
+
+Para executar em seu computador você deve compilar os arquivos da seguinte forma no terminal:
+```powershell
+python train_model.py
+>> python optimize_model.py
+```
+### Estrutura
+```python
+processoseletivoIA/
+├── .github/
+│   └── workflows/
+│       └── ci.yml            
+├── .devcontainer/            
+│   └── devcontainer.json
+├── .vscode/ 
+│   └── settings.json
+├── models/                   # 🤖 Modelos do Keras
+├── train_model.py            # ✏️ Treinamento do modelo
+├── optimize_model.py         # ✏️ Conversão e otimização
+├── requirements.txt          # 📄 Dependências do projeto
+├── model.h5                  # 🤖 Modelo treinado (gerado)
+├── model.tflite              # ⚡ Modelo otimizado (gerado)
+└── README.md                 # 📝 Relatório final 
+```
 ---
