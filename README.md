@@ -59,9 +59,11 @@ Dense(64, activation='relu')
 Essa camada utiliza 64 neurônios, cada um faz uma interpretação diferente dos valores do Flaten, essa camada identifica padrôes ainda mais completos a partir da combinação dos padrôes já identificados antes ele começa a juntar os detalhes como se fosse um quebra cabeças.
 
 A segunda camada densa realiza a distinção dos dígitos:
+
 ```python
 layers.Dense(10, activation='softmax')
 ```
+
 Ela utiliza 10 neunônios cada um representa um número específico de 0 a 9. Cada neurônio vai calcular um valor com base na última saída advinda da primeira camada densa e esses valores são convertidos em probabilidades. Com isso, para cada valor apresentado será atribuído o dígito com maior probabilidade. 
 
 #### ReLU 
@@ -90,16 +92,33 @@ Nesse caso, o valor atribuido ao dígito seria o 2, pois ele possui a maior prob
 
 ### Tensorflow
 
-A biblioteca que mais utilizei foi a Tensorflow 
-dando ênfase para alguns de seus módulos:
-  #### 1. Keras 
-  
-  #### 2. Layers
-  
-  #### 3. Lite
+A biblioteca que mais utilizei foi a Tensorflow na versão 2.21.0
+dando ênfase principalmente para o módulo Keras na versão 3.14.0
 
+O Keras foi usado para:
+
+Carregar o dataset MNIST
+
+```python
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+```
+Criar a rede neural
+
+```python
+model = keras.Sequential([...
+```
+Treinar, avaliar e salvar o modelo de um modo geral.
+  
+O módulo lite também foi utilizado na fase de otimização para a conversão do modelo para utilização em dispositivos de borda (Edge AI)
+```python
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+```
 ### os
 
+A biblioteca OS do sistema operacional também foi bastante utilizada, dentre suas aplicações teve mais destaque sua utilização no salvamento dos arquivos solicitados, verificando se esses já existiam na pasta para evitar erros durante a compilação.
+```python
+if os.path.exists("model.tflite"):
+  ```
 
 ---
 ## 3️⃣ Técnica de Otimização do Modelo
@@ -109,7 +128,12 @@ dando ênfase para alguns de seus módulos:
 ---
 ## 4️⃣ Resultados Obtidos
 
-Informe o principal resultado obtido após o treinamento do modelo.
+| Critério | Resultado |
+|--------|---------------|
+|  Acurácia final de treinamento   | 98,81%            |
+| Loss final de treinamento     | 0,0389           |
+| Acurácia de validação     | 98,83%       |
+| Loss de validação     | 0.0431      |
 
 
 ---
